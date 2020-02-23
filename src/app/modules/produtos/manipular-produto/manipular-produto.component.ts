@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProdutosService } from '../service/produtos.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-manipular-produto',
@@ -12,6 +12,7 @@ export class ManipularProdutoComponent implements OnInit {
 
   manipularForm: FormGroup;
   parametro: string;
+  titulo: string;
 
   constructor(
     private router: Router,
@@ -25,11 +26,14 @@ export class ManipularProdutoComponent implements OnInit {
     this.activatedRoute.params.subscribe(param => {
       if (param && param['id']) {
         this.parametro = param['id'];
+        this.titulo = 'Editar';
         this.produtosService.getById(param['id']).subscribe(prod => {
           this.manipularForm.setValue(prod);
         }, err => {
           console.log('err', err);
         });
+      } else {
+        this.titulo = 'Cadastrar';
       }
     })
   }
