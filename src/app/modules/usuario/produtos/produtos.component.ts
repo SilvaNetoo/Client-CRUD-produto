@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Produto } from './models/produto';
 import { ProdutosService } from './service/produtos.service';
+import { CONSTANTS } from 'src/app/shared/constantes/constantes';
 
 @Component({
   selector: 'app-produtos',
@@ -55,16 +56,20 @@ export class ProdutosComponent implements OnInit {
     }
   }
 
-  editarProduto(id: number) {
-    if (id) {
-      this.route.navigate(['v1/manipular', id]);
-    } else {
-      console.log('Produto não existe');
+  adicionarProduto(produto: Produto) {
+    console.log('local');
+    if (produto && JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id) {
+      this.produtosService.putCarrinho(JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id, produto)
+        .subscribe(res => {
+          console.log('res', res);
+        }, err => {
+          console.log('err', err);
+        })
     }
   }
 
   redirecionarParaManipularProd() {
-    this.route.navigate(['v1/manipular']);
+    this.route.navigate(['usuario/produto/manipular']);
   }
 
 }

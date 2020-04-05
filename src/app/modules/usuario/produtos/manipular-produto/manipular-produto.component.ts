@@ -49,16 +49,14 @@ export class ManipularProdutoComponent implements OnInit {
     if (this.parametro) {
       this.produtosService.put(this.manipularForm.value, this.parametro)
         .subscribe(res => {
-          console.log('res', res);
-          this.router.navigate(['v1/produtos']);
+          this.router.navigate(['usuario/produto']);
         }, err => {
           console.log('err', err);
         });
     } else {
       this.produtosService.post(this.manipularForm.value)
         .subscribe(res => {
-          console.log('res', res);
-          this.router.navigate(['v1/produtos']);
+          this.router.navigate(['usuario/produto']);
         }, err => {
           console.log('err', err);
         });
@@ -66,7 +64,7 @@ export class ManipularProdutoComponent implements OnInit {
   }
 
   redirecionarParaListarProd() {
-    this.router.navigate(['v1/produtos']);
+    this.router.navigate(['usuario/produto']);
   }
 
 }

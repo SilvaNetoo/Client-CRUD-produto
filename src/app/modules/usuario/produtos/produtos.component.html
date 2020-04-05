@@ -12,22 +12,20 @@
 
     <h3>sub produtos </h3>
 
-    <table class="table table-borderless">
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col"> <i class="glyphicon glyphicon-list"></i> </th>
                 <th scope="col">Nome</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Deletar</th>
+                <th scope="col">Adicionar ao carrinho</th>
             </tr>
         </thead>
         <tbody *ngIf="produtos && produtos?.length">
             <tr *ngFor="let produto of produtos">
                 <th>{{produto?.id}}</th>
                 <td>{{produto?.nome}}</td>
-                <td><i (click)="editarProduto(produto.id)" class="glyphicon glyphicon-pencil"></i></td>
-                <td><i data-toggle="modal" data-target="#exampleModalCenter" class="glyphicon glyphicon-trash"
-                        (click)="abrirModal(produto)"></i></td>
+                <td><button type="button" class="btn btn-success"
+                        (click)="adicionarProduto(produto)">Adicionar</button></td>
             </tr>
         </tbody>
     </table>

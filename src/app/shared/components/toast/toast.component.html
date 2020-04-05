@@ -1,0 +1,21 @@
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal" id="modalError" tabindex="-1" role="dialog" aria-labelledby="modalError" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title bold-font" id="exampleModalLabel">{{title}}</h5>
+        <button type="button" (click)="closeModal()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{message?.split('\n')[0]}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-color btn-circle bold-font" (click)="closeModal()"
+          data-dismiss="modal">FECHAR</button>
+      </div>
+    </div>
+  </div>
+</div>

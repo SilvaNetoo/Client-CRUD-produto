@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { endpoint } from 'src/endpoints/endpoints';
@@ -26,6 +26,10 @@ export class ProdutosService {
 
   post(object: Produto): Observable<Produto> {
     return this.httpClient.post<Produto>(`${environment.url}/${endpoint.produtos}`, object);
+  }
+
+  putCarrinho(idUser: string, prod: Produto): Observable<any> {
+    return this.httpClient.put<any>(`${environment.url}/${endpoint.usuario}/${endpoint.produtos}/${idUser}`, prod);
   }
 
   put(object: Produto, id: string): Observable<Produto> {

@@ -1,3 +1,5 @@
 export const endpoint = {
-    produtos : 'produtos'
+    produtos : 'produtos',
+    usuario : 'usuarios',
+    emailSenha : 'emailSenha',
 };
