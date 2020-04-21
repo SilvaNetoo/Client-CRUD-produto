@@ -1,9 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CONSTANTS } from 'src/app/shared/constantes/constantes';
 import { Produto } from './models/produto';
 import { ProdutosService } from './service/produtos.service';
-import { CONSTANTS } from 'src/app/shared/constantes/constantes';
 
 @Component({
   selector: 'app-produtos',
@@ -14,6 +14,7 @@ export class ProdutosComponent implements OnInit {
 
   produtos: Array<Produto>;
   prod: Produto;
+  carrinho: Array<Produto>;
 
   constructor(
     private produtosService: ProdutosService,
@@ -22,6 +23,7 @@ export class ProdutosComponent implements OnInit {
 
   ngOnInit() {
     this.buscarProdutos();
+    this.atualizarCarrinho();
   }
 
   buscarProdutos() {
@@ -60,8 +62,8 @@ export class ProdutosComponent implements OnInit {
     console.log('local');
     if (produto && JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id) {
       this.produtosService.putCarrinho(JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id, produto)
-        .subscribe(res => {
-          console.log('res', res);
+        .subscribe(() => {
+          this.atualizarCarrinho();
         }, err => {
           console.log('err', err);
         })
@@ -70,6 +72,18 @@ export class ProdutosComponent implements OnInit {
 
   redirecionarParaManipularProd() {
     this.route.navigate(['usuario/produto/manipular']);
+  }
+
+  atualizarCarrinho() {
+    this.produtosService.getUsuario(JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id)
+      .subscribe(res => {
+        if (res && res.carrinho && res.carrinho.produtos) {
+          this.carrinho = new Array<Produto>();
+          res.carrinho.produtos.forEach(prod => {
+            this.carrinho.push(prod);
+          });
+        }
+      });
   }
 
 }

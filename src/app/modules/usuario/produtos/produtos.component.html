@@ -1,34 +1,70 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-10">
-            <h1>produto por sessão !</h1>
+        <div class="col-sm-6">
 
+            <div class="col-sm-10">
+                <h1>produto por sessão !</h1>
+
+            </div>
+            <div class="col-sm-2">
+                <button type="button" (click)="redirecionarParaManipularProd()"
+                    class="btn btn-success margin-top-button">Adicionar Produto</button>
+            </div>
+
+            <h3>sub produtos </h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> <i class="glyphicon glyphicon-list"></i> </th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Add ao Carrinho</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="produtos && produtos?.length">
+                    <tr *ngFor="let produto of produtos">
+                        <th>{{produto?.id}}</th>
+                        <td>{{produto?.nome}}</td>
+                        <td><button type="button" class="btn btn-success" (click)="adicionarProduto(produto)">Add ao
+                                Carrinho</button></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="col-sm-2">
-            <button type="button" (click)="redirecionarParaManipularProd()"
-                class="btn btn-success btn-circle margin-top-button"><i class="glyphicon glyphicon-plus"></i></button>
+
+        <!-- Carrinho -->
+        <div class="col-sm-6">
+            <div class="col-sm-10">
+                <h1>Carrinho!</h1>
+
+            </div>
+
+            <div *ngIf="carrinho && carrinho.length; else carrinhoVazio">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome </th>
+                            <!-- <th scope="col">Adicionar ao carrinho</th> -->
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="carrinho && carrinho?.length">
+                        <tr *ngFor="let produto of carrinho">
+                            <td>{{produto?.nome}}</td>
+                            <!-- <td><button type="button" class="btn btn-success"
+                                (click)="deletar(produto)">Adicionar</button></td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #carrinhoVazio>
+                <p>
+                    Carrinho vazio!
+                </p>
+            </ng-template>
+
         </div>
     </div>
 
-    <h3>sub produtos </h3>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col"> <i class="glyphicon glyphicon-list"></i> </th>
-                <th scope="col">Nome</th>
-                <th scope="col">Adicionar ao carrinho</th>
-            </tr>
-        </thead>
-        <tbody *ngIf="produtos && produtos?.length">
-            <tr *ngFor="let produto of produtos">
-                <th>{{produto?.id}}</th>
-                <td>{{produto?.nome}}</td>
-                <td><button type="button" class="btn btn-success"
-                        (click)="adicionarProduto(produto)">Adicionar</button></td>
-            </tr>
-        </tbody>
-    </table>
 </div>
 
 

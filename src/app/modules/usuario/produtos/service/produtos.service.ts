@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { endpoint } from 'src/endpoints/endpoints';
 import { environment } from 'src/environments/environment';
 import { Produto } from '../models/produto';
+import { Usuario } from 'src/app/shared/domains/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class ProdutosService {
 
   put(object: Produto, id: string): Observable<Produto> {
     return this.httpClient.put<Produto>(`${environment.url}/${endpoint.produtos}/${id}`, object);
+  }
+
+  getUsuario(id: string){
+    return this.httpClient.get<Usuario>(`${environment.url}/${endpoint.usuario}/${id}`);
   }
 
 }
