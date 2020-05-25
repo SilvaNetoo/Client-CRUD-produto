@@ -1,47 +1,23 @@
-<div class="container">
+<div class="panel panel-primary">
+    <div class="panel-heading">Cadastro</div>
+    <div class="wrapper">
+      <form [formGroup]="cadastroForm">
 
-    <form [formGroup]="cadastroForm" (ngSubmit)="cadastro()">
-
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="input-group input-group-sm pb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-lg">
-                            <img src="../../../assets/arroba.svg" width="30" height="30"
-                                class="d-inline-block align-top">
-                        </span>
-                    </div>
-                    <input type="text" class="form-control" id="email-field" formControlName="email" name="email"
-                        placeholder="Digite o seu email">
-                </div>
-                <app-form-error [presentError]="presentFieldErrors" [control]="cadastroForm.get('email')"
-                    inputFieldId="email-field">
-                </app-form-error>
-            </div>
-
-            <div class="col-md-12">
-                <div class="input-group input-group-sm pb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-lg">
-                            <img src="../../../assets/key.svg" width="30" height="30" class="d-inline-block align-top">
-                        </span>
-                    </div>
-                    <input type="password" class="form-control" id="senha-field" formControlName="senha" name="senha"
-                        placeholder="Digite o sua senha">
-                </div>
-                <app-form-error [presentError]="presentFieldErrors" [control]="cadastroForm.get('senha')"
-                    inputFieldId="senha-field">
-                </app-form-error>
-            </div>
-
-            <div class="input-group input-group-sm pb-3">
-                <button type="button" type="submit"
-                    class="btn btn-color btn-lg btn-block bold-font float-right ">FINALIZAR CADASTRO</button>
-            </div>
-
+        <div class="input-group input-group-md pb-3">
+          <input type="text" class="form-control" id="email-field" formControlName="email" name="email"
+            placeholder="Email">
         </div>
 
-    </form>
+        <div class="input-group input-group-md pb-3">
+          <input type="password" class="form-control" id="senha-field" formControlName="senha" name="senha"
+            placeholder="Senha">
+        </div>
 
-</div>
+        <div class="input-group input-group-sm pb-3">
+          <button type="button" (click)="cadastro()"
+            class="btn btn-color btn-md btn-block bold-font">CADASTRAR-SE</button>
+        </div>
+
+      </form>
+    </div>
+  </div>

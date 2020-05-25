@@ -1,56 +1,52 @@
-<div class="wrapper">
+<div class="container-fluid">
 
-    <form [formGroup]="loginForm" (ngSubmit)="finish()">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Componente - Usuário</div>
+                <div class="panel-body fixed-panel">
 
-        <div class="row">
+                    <div class="row">
+                        <div class="col-sm-6">
 
-            <div class="col-md-12">
-                <div class="input-group input-group-sm pb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-lg">
-                            <img src="../../../assets/arroba.svg" width="30" height="30"
-                                class="d-inline-block align-top">
-                        </span>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Login</div>
+                                <div class="wrapper">
+                                    <form [formGroup]="loginForm" (ngSubmit)="finish()">
+
+                                        <div class="input-group input-group-md pb-3">
+                                            <input type="text" class="form-control" id="email-field"
+                                                formControlName="email" name="email" placeholder="Email">
+                                        </div>
+
+                                        <div class="input-group input-group-md pb-3">
+                                            <input type="password" class="form-control" id="senha-field"
+                                                formControlName="senha" name="senha" placeholder="Senha">
+                                        </div>
+
+                                        <div class="input-group input-group-sm pb-3">
+                                            <button type="button" type="submit"
+                                                class="btn btn-color btn-md btn-block bold-font">LOGIN</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <app-cadastro></app-cadastro>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" id="email-field" formControlName="email" name="email"
-                        placeholder="Email">
-                </div>
-                <app-form-error [presentError]="presentFieldErrors" [control]="loginForm.get('email')"
-                    inputFieldId="email-field">
-                </app-form-error>
-            </div>
-
-            <div class="col-md-12">
-                <div class="input-group input-group-sm pb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-lg">
-                            <img src="../../../assets/key.svg" width="30" height="30" class="d-inline-block align-top">
-                        </span>
-                    </div>
-                    <input type="password" class="form-control" id="senha-field" formControlName="senha" name="senha"
-                        placeholder="Senha">
 
                 </div>
-                <app-form-error [presentError]="presentFieldErrors" [control]="loginForm.get('senha')"
-                    inputFieldId="senha-field">
-                </app-form-error>
             </div>
-
-            <div class="input-group input-group-sm pb-3">
-                <button type="button" type="submit"
-                    class="btn btn-color btn-lg btn-block bold-font float-right ">LOGIN</button>
-            </div>
-
-            <div class="input-group input-group-sm">
-                <button type="button" (click)="cadastro()"
-                    class="btn btn-lg btn-block bold-font float-right ">CADASTRE-SE</button>
-            </div>
-
         </div>
-
-    </form>
+    </div>
 
 </div>
 
-<toast [showModal]="showModal" [title]="title" [message]="message"
-    (close)="getClose($event)"></toast>
+<app-produtos></app-produtos>
+
+<toast [showModal]="showModal" [title]="title" [message]="message" (close)="getClose($event)"></toast>

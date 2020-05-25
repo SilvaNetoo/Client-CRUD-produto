@@ -8,7 +8,7 @@ import { CadastroService } from './service/cadastro.service';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-component.module';
 
 const routes: Routes = [
-  { path: '', component: CadastroComponent }
+  { path: '/cadastro', component: CadastroComponent }
 ];
 
 @NgModule({
@@ -22,6 +22,9 @@ const routes: Routes = [
   ],
   providers: [
     CadastroService
+  ],
+  exports: [
+    CadastroComponent
   ]
 })
 export class CadastroModule { }

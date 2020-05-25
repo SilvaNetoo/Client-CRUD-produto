@@ -1,74 +1,120 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
+<div class="col-sm-7">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Componente - Produto</div>
+        <div class="panel-body fixed-panel">
 
-            <div class="col-sm-10">
-                <h1>produto por sessão !</h1>
+            <form [formGroup]="productForm" (ngSubmit)="finalizar()">
+                <div class="row">
 
-            </div>
-            <div class="col-sm-2">
-                <button type="button" (click)="redirecionarParaManipularProd()"
-                    class="btn btn-success margin-top-button">Adicionar Produto</button>
-            </div>
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm pb-3">
+                            <input type="text" class="form-control" id="nome-field" formControlName="nome" name="nome"
+                                placeholder="Nome">
+                        </div>
+                    </div>
 
-            <h3>sub produtos </h3>
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm pb-3">
+                            <input type="number" class="form-control" id="preco-field" formControlName="preco"
+                                name="preco" placeholder="Preço">
+                        </div>
+                    </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col"> <i class="glyphicon glyphicon-list"></i> </th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Add ao Carrinho</th>
-                    </tr>
-                </thead>
-                <tbody *ngIf="produtos && produtos?.length">
-                    <tr *ngFor="let produto of produtos">
-                        <th>{{produto?.id}}</th>
-                        <td>{{produto?.nome}}</td>
-                        <td><button type="button" class="btn btn-success" (click)="adicionarProduto(produto)">Add ao
-                                Carrinho</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    <div class="col-md-3">
+                        <div class="input-group input-group-sm pb-3">
+                            <input type="number" class="form-control" id="quantidade-field" formControlName="quantidade"
+                                name="quantidade" placeholder="Quantidade">
+                        </div>
+                    </div>
 
-        <!-- Carrinho -->
-        <div class="col-sm-6">
-            <div class="col-sm-10">
-                <h1>Carrinho!</h1>
+                    <div class="input-group input-group-sm pb-3">
+                        <button type="button" type="submit"
+                            class="btn btn-color btn-sm btn-block bold-font float-right ">Cadastrar Produto</button>
+                    </div>
 
-            </div>
+                </div>
+            </form>
 
-            <div *ngIf="carrinho && carrinho.length; else carrinhoVazio">
-                <table class="table">
+
+            <div class='table-responsive'>
+                <table class='table'>
                     <thead>
                         <tr>
-                            <th scope="col">Nome </th>
-                            <!-- <th scope="col">Adicionar ao carrinho</th> -->
+                            <th>Produto</th>
+                            <th>Preço</th>
+                            <th>Quantidade</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="carrinho && carrinho?.length">
-                        <tr *ngFor="let produto of carrinho">
-                            <td>{{produto?.nome}}</td>
-                            <!-- <td><button type="button" class="btn btn-success"
-                                (click)="deletar(produto)">Adicionar</button></td> -->
+                    <tbody>
+                        <tr *ngFor="let product of produtos">
+                            <td>{{product.nome}}</td>
+                            <td>{{product.preco | currency: 'BRL' :true: '1.2-2'}}</td>
+                            <td>{{product.quantidade - product.qty}}</td>
+                            <td>
+                                <a class="btn btn-primary" (click)="addToCart(product)">Add</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <ng-template #carrinhoVazio>
-                <p>
-                    Carrinho vazio!
-                </p>
-            </ng-template>
-
         </div>
     </div>
+</div>
 
+<!-- Carrinho -->
+<div class="col-sm-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Componente - Carrinho</div>
+        <div class="panel-body fixed-panel">
+            <div class='table-responsivenes' style="border:none">
+                <table class='table' border="0" style="    position: relative;">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let product of carrinho">
+                            <td>{{product.nome}}</td>
+                            <td class="space-caret">
+
+                                <div class="input-group spinner">
+                                    <input type="text" class="form-control" value="{{product.qty}}">
+                                    <div class="input-group-btn-vertical">
+                                        <button class="btn btn-default" type="button" (click)="increment(product)"><i
+                                                class="fa fa-caret-up"></i></button>
+                                        <button class="btn btn-default" type="button" (click)="decrement(product)"><i
+                                                class="fa fa-caret-down"></i></button>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>{{product.preco | currency: 'BRL' :true: '1.2-2'}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot class="total">
+                        <tr>
+                            <th style="border-bottom:0">Total</th>
+                            <th style="border-bottom:0"></th>
+                            <th style="border-bottom:0">{{totalprice | currency: 'BRL' :true: '1.2-2'}}</th>
+
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

@@ -7,7 +7,7 @@ import { ProdutosService } from './service/produtos.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
-  { path: '', component: ProdutosComponent },
+  { path: 'produtos', component: ProdutosComponent },
   { path: 'manipular', component: ManipularProdutoComponent },
   { path: 'manipular/:id', component: ManipularProdutoComponent },
 ];

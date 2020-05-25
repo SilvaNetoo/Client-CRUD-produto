@@ -55,22 +55,16 @@ export class LoginComponent implements OnInit {
     this.loginService.get(this.loginForm.value)
       .subscribe(res => {
         if (res && res[CONSTANTS.originValue]) {
-          console.log('res', res);
           localStorage.setItem('user', JSON.stringify(res));
-          console.log('1');
-          this.router.navigate(['usuario/produto'])
+          alert('Usuario logado com sucesso!')
         } else {
           this.buildMessageError('Erro!', 'Usuário não encontrado na pesquisa, por favor realize o cadastro no sistema.')
-          console.log('2');
         }
       }, err => {
         console.error(err);
       })
   }
 
-  cadastro(): void {
-    this.router.navigate(['usuario/cadastro'])
-  }
 
   buildMessageError(title: string, message: string): void {
     this.showModal = true;

@@ -1,60 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-.btn-color:active {
-    background-color: rgb(105, 255, 110);
-    color: white;
-}
-
-.btn-color {
-    background-color: rgb(6, 247, 14);
-    color: white;
-}
-
-.btn-color-secundaria:active {
-    background-color: rgb(105, 255, 110);
-    color: white;
-}
-
-.btn-color-secundaria {
-    background-color: rgb(6, 247, 14);
-    color: white;
-}
-
-.pt-1 {
-    padding-top: 1rem !important;
-}
-
-.pb-1 {
-    padding-bottom: 1rem !important;
-}
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
 .pb-3 {
     padding-bottom: 3rem !important;
 }
 
-.bold-font {
-    font-weight: bold;
-}
-
-.pd-2 {
-    padding: 2px;
-}
-
-.mgb-2 {
-    margin-bottom: 2rem !important;
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+    margin-top: 5rem;
 }
 
 .border-around {
-    border-style: solid;
-    border-color: black;
-    min-height: 400px;
-    padding: 10px;
-    padding-top: 1rem;
-}
-
-.cp {
-    cursor: pointer;
-}
-
-select.form-control:not([size]):not([multiple]) {
-    height: calc(2.4rem + 2px) !important;
+    height: 400px;
 }

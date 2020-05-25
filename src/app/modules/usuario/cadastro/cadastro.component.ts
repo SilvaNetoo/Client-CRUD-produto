@@ -48,7 +48,8 @@ export class CadastroComponent implements OnInit {
   cadastro(): void {
     this.service.post(this.cadastroForm.value)
       .subscribe(res => {
-        this.router.navigate(['usuario/login'])
+        alert('Usuario Cadastroado com sucesso!')
+        this.cadastroForm.reset();
       }, err => {
         console.log(err)
       });

@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CONSTANTS } from 'src/app/shared/constantes/constantes';
 import { Produto } from './models/produto';
@@ -15,22 +16,48 @@ export class ProdutosComponent implements OnInit {
   produtos: Array<Produto>;
   prod: Produto;
   carrinho: Array<Produto>;
+  productForm: FormGroup;
+  public totalprice: number = 0;
 
   constructor(
     private produtosService: ProdutosService,
-    private route: Router
+    private route: Router,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.criarForm();
+    this.atualizarTela();
+  }
+
+  criarForm() {
+    this.productForm = this.fb.group({
+      id: [''],
+      nome: ['', Validators.required],
+      preco: ['', Validators.required],
+      quantidade: ['', Validators.required],
+    });
+  }
+
+  private atualizarTela() {
+    this.carrinho = new Array<Produto>();
     this.buscarProdutos();
-    this.atualizarCarrinho();
+    // this.atualizarCarrinho();
   }
 
   buscarProdutos() {
     this.produtosService.get()
       .subscribe(res => {
         this.produtos = new Array<Produto>();
-        this.produtos = res;
+        res.forEach(prod => {
+          this.produtos.push({
+            id: prod.id,
+            nome: prod.nome,
+            preco: prod.preco,
+            quantidade: prod.quantidade,
+            qty: 0
+          })
+        })
       }, err => console.log('err', err));
   }
 
@@ -63,27 +90,64 @@ export class ProdutosComponent implements OnInit {
     if (produto && JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id) {
       this.produtosService.putCarrinho(JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id, produto)
         .subscribe(() => {
-          this.atualizarCarrinho();
+          this.atualizarCarrinho(produto);
         }, err => {
           console.log('err', err);
         })
     }
   }
 
-  redirecionarParaManipularProd() {
-    this.route.navigate(['usuario/produto/manipular']);
-  }
-
-  atualizarCarrinho() {
+  atualizarCarrinho(produto) {
     this.produtosService.getUsuario(JSON.parse(localStorage.getItem('user'))[CONSTANTS.originValue].id)
       .subscribe(res => {
         if (res && res.carrinho && res.carrinho.produtos) {
-          this.carrinho = new Array<Produto>();
-          res.carrinho.produtos.forEach(prod => {
-            this.carrinho.push(prod);
-          });
+          console.log('res', res);
+          this.totalprice = this.totalprice + produto.preco;
+          this.carrinho.push(produto);
         }
       });
+  }
+
+  finalizar() {
+    if (this.productForm && this.productForm.value) {
+
+      console.log('prod', this.productForm.value);
+
+
+      this.produtosService.post(this.productForm.value)
+        .subscribe(res => {
+          console.log('produto POST', res);
+
+          this.atualizarTela();
+        }, err => {
+          console.log('err', err);
+        });
+    }
+  }
+
+  public addToCart(product) {
+    if (product.qty === product.quantidade) {
+      console.log('Product is out of Stock.');
+    } else {
+      product.qty = product.qty + 1;
+      this.adicionarProduto(product);
+    }
+  }
+
+  increment(product) {
+    if (product.qty >= 0 && product.qty < product.quantidade) {
+      product.qty = product.qty + 1;
+      product.cartprice = product.cartprice + product.preco;
+      this.totalprice = this.totalprice + product.preco;
+    }
+  }
+
+  decrement(product) {
+    if (product.qty > 0 && product.qty <= product.quantidade) {
+      product.qty = product.qty - 1;
+      product.cartprice = product.cartprice - product.preco;
+      this.totalprice = this.totalprice - product.preco;
+    }
   }
 
 }
