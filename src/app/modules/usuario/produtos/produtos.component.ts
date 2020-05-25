@@ -104,6 +104,11 @@ export class ProdutosComponent implements OnInit {
           console.log('res', res);
           this.totalprice = this.totalprice + produto.preco;
           this.carrinho.push(produto);
+          this.carrinho = this.carrinho.filter((elem, i, arr) => {
+            if (arr.indexOf(elem) === i) {
+              return elem
+            }
+          })
         }
       });
   }
